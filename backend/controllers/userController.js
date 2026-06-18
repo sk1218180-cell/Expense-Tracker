@@ -127,6 +127,7 @@ export async function getCurrentUser (req, res) {
 }
 
 // To update user details
+// // console.log("Update user....")
 export async function updateProfile (req, res){
     const { name, email } = req.body;
     if (!name || !email || !validator.isEmail(email)) {
@@ -136,9 +137,16 @@ export async function updateProfile (req, res){
         });
     }
     try {
-        const exists = await User.findOne({email, _id: {$ne: req.user.id}});
-        if (!exists) {
-            return res.status(409).json({
+        // Check if email is already in use by another user
+        // console.log("req.user._id", req.user?._id);
+        // console.log("email", email);
+        // console.log("req.user =", req.user);
+        const exists = await User.findOne({email, _id: {$ne: req.user._id}});
+        // console.log("before if block");
+        // console.log("exists", exists);
+        if (exists) {
+            // console.log("inside if block");
+            return res.status(409).json({ 
                 success: false,
                 message: "Email already in use"
             })
@@ -163,8 +171,8 @@ export async function updateProfile (req, res){
 
 // To change user password
 export async function updatePassword (req, res) {
-    const { currentpassword, newPassword } = req.body;
-    if (!currentpassword || !newPassword || newPassword.length < 8) {
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword || newPassword.length < 8) {
         return res.status(400).json({
             success: false,
             message: "Password invalid or too short"
@@ -179,7 +187,7 @@ export async function updatePassword (req, res) {
                 message: "User not found"
             });
         }
-        const isMatch = await bcrypt.compare(currentpassword, user.password);
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) {
             return res.status(401).json({
                 success: false,
