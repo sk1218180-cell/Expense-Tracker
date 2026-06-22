@@ -49,7 +49,19 @@ const Navbar = ({user: propUser, onLogout}) => {
     localStorage.removeItem("token");
     onLogout?.();
     navigate("/login")
-  }
+  };
+
+  // closes the toggle menu if click outside the box
+   useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className={navbarStyles.header}>
