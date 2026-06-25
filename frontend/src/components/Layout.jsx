@@ -16,6 +16,7 @@ import {
   Gift,
   Home,
   Info,
+  PieChart,
   PiggyBank,
   RefreshCcw,
   RefreshCw,
@@ -29,6 +30,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import { Outlet } from "react-router-dom";
+import { setStyle } from "framer-motion";
 
 const API_BASE = "http://localhost:4000/api";
 const CATEGORY_ICONS = {
@@ -530,6 +532,54 @@ const Layout = ({ onLogout, user }) => {
             </div>
 
             {/* Spending by category card */}
+            <div className={styles.cards.base}>
+              <h3 className={styles.categories.title}>
+                <PieChart className={styles.categories.titleIcon} />
+                Spending by Category
+              </h3>
+
+              <div className={styles.categories.list}>
+                {topCategories.map(([category, amount]) => (
+                  <div key={category} className={styles.categories.categoryItem}>
+                    <div className=" flex items-center gap-3">
+                      <div className={styles.categories.categoryIconContainer}>
+                        {CATEGORY_ICONS[category] || (
+                          <DollarSign className={styles.categories.categoryIcon} />
+                        )}
+                      </div>
+                      <span className={styles.categories.categoryName}>
+                        {category}
+                      </span>
+                    </div>
+                    <span className={styles.categories.categoryAmount}>
+                      ${amount}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className={styles.categories.summaryContainer}>
+                <div className={styles.categories.summaryGrid}>
+                  <div className={styles.categories.summaryIncomeCard}>
+                    <p className={styles.categories.summaryTitle}>
+                      Total Income
+                    </p>
+                    <p className={styles.categories.summaryValue}>
+                      ${stats.allTimeIncome.toLocaleString()}
+                    </p>
+                  </div>
+
+                  <div className={styles.categories.summaryExpenseCardCard}>
+                    <p className={styles.categories.summaryTitle}>
+                      Total Expense
+                    </p>
+                    <p className={styles.categories.summaryValue}>
+                      ${stats.allTimeExpenses.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
