@@ -2,7 +2,7 @@ import React from "react";
 import { loginStyles } from "../assets/dummyStyles";
 import { Mail, User, Lock, EyeOff, Eye } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ onLogin, API_URL = "http://localhost:4000" }) => {
@@ -230,6 +230,15 @@ const Login = ({ onLogin, API_URL = "http://localhost:4000" }) => {
               )}
             </button>
           </form>
+
+          <div className={loginStyles.signUpContainer}>
+            <p className={loginStyles.signUpText}>
+              Don't have an account{" "}
+              <Link to='/signup' className={loginStyles.signUpLink}>
+              Create Account
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
