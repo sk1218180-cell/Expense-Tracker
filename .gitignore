@@ -11,7 +11,10 @@ backend/.env
 
 # Build output
 frontend/dist/
+<<<<<<< HEAD
 backend/dist/
 
 backend/.env
 frontend/.env
+=======
+backend/dist/
