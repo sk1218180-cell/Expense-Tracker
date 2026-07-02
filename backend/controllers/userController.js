@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET; // Replace with your own secret key
-const JWT_EXPIRES = "24h"; // Token expiration time
+const JWT_EXPIRES = "1h"; // Token expiration time
 
 const createToken = (userId) =>
   jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
