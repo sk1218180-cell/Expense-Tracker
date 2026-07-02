@@ -32,7 +32,7 @@ import { useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { setStyle } from "framer-motion";
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = "https://expense-tracker-backend-b6yy.onrender.com/api";
 const CATEGORY_ICONS = {
   Food: <Utensils className="w-4 h-4" />,
   Housing: <Home className="w-4 h-4" />,
